@@ -9,9 +9,14 @@ def transcribe(
     pipeline, audio_file, task="transcribe", language="no", return_timestamps=True
 ):
     print(f"Transcribing {audio_file}")
-    return pipeline(
-        audio_file, task=task, language=language, return_timestamps=return_timestamps
-    )
+    try:
+        return pipeline(
+            audio_file, task=task, language=language, return_timestamps=return_timestamps
+        )
+    except Exception as e:
+        print(f"Transcription failed for {audio_file}")
+        print(e)
+        return dict(text="", chunks=[])
 
 
 def save_transcription(audio_file, transcript, outdir, format=None, filestem=None):
@@ -89,8 +94,7 @@ def transcribe_all(
         save_transcription(audio_file, transcript, outdir, format=transcription_format)
         transcribed.append(audio_file.stem)
 
-
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(
         description="Transcribe audio files with Jax Whisper"
     )
@@ -176,3 +180,7 @@ if __name__ == "__main__":
             )
         except AssertionError:
             print("Must specify --audio_dir when transcribing many files")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,2 +1,0 @@
-whisper_jax
-jax
