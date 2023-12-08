@@ -19,7 +19,7 @@ sprakbanken-whisper-jax NbAiLab/nb-whisper-large-beta /path/to/transcription/dir
 
 Transcribe all mp3 files in a directory:
 ```
-python run_whisper_jax.py NbAiLab/nb-whisper-large-beta /path/to/transcription/dir -m -d /path/to/audio/file -f mp3 
+sprakbanken-whisper-jax NbAiLab/nb-whisper-large-beta /path/to/transcription/dir -m -d /path/to/audio/file -f mp3 
 ```
 
 By default, the script produces two files per transcription, a jsonl file with timecoded transcriptions and a txt file
