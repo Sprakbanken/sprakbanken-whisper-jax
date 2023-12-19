@@ -1,4 +1,4 @@
-from whisper_jax import FlaxWhisperPipline
+from whisper_jax import FlaxWhisperPipeline
 import jax.numpy as jnp
 from pathlib import Path
 import json
@@ -134,15 +134,15 @@ def main():
         help="Transcription format. Specify 'txt' or 'jsonl'. By default, both are produced",
     )
     parser.add_argument("-b", "--batch-size", type=int, default=None, help="Batch size")
-    parser.add_argument(
-        "-R", "--return-timestamps", action="store_true", help="Return timestamps"
-    )
+    # parser.add_argument(
+    #     "-R", "--return-timestamps", action="store_true", help="Return timestamps"
+    # )
     args = parser.parse_args()
 
     if args.batch_size is None:
-        pipeline = FlaxWhisperPipline(args.model, dtype=jnp.bfloat16)
+        pipeline = FlaxWhisperPipeline(args.model, dtype=jnp.bfloat16)
     else:
-        pipeline = FlaxWhisperPipline(
+        pipeline = FlaxWhisperPipeline(
             args.model, dtype=jnp.bfloat16, batch_size=args.batch_size
         )
     print(f"Loaded model {args.model}")
@@ -154,7 +154,7 @@ def main():
                 args.audio_file,
                 task=args.task,
                 language=args.language,
-                return_timestamps=args.return_timestamps,
+                return_timestamps=True,
             )
             save_transcription(
                 args.audio_file,

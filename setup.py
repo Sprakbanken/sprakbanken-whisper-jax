@@ -10,7 +10,7 @@ setup(
         ],
     },
     install_requires=[
-        'whisper-jax @ git+https://github.com/sanchit-gandhi/whisper-jax.git#egg=whisper-jax',
+        'whisper-jax @ git+https://github.com/NbAiLab/nb-whisper-jax.git#egg=whisper-jax',
         'jax',
     ],
 )
