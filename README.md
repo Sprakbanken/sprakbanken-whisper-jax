@@ -35,6 +35,13 @@ positional arguments:
   out_dir               Path to output directory
 
 options:
+Transcribe audio files with Jax Whisper
+
+positional arguments:
+  model                 Model to use
+  out_dir               Path to output directory
+
+options:
   -h, --help            show this help message and exit
   -m, --transcribe_many
                         Transcribe many files. Requires --audio_dir
@@ -53,7 +60,7 @@ options:
                         Transcription format. Specify 'txt' or 'jsonl'. By default, both are produced
   -b BATCH_SIZE, --batch-size BATCH_SIZE
                         Batch size
-  -R, --return-timestamps
-                        Return timestamps
+  -n NUM_BEAMS, --num-beams NUM_BEAMS
+                        Num beams
 ```
 
