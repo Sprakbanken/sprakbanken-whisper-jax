@@ -11,7 +11,10 @@ def transcribe(
     print(f"Transcribing {audio_file}")
     try:
         return pipeline(
-            audio_file, task=task, language=language, return_timestamps=return_timestamps
+            audio_file,
+            task=task,
+            language=language,
+            return_timestamps=return_timestamps,
         )
     except Exception as e:
         print(f"Transcription failed for {audio_file}")
@@ -94,6 +97,7 @@ def transcribe_all(
         save_transcription(audio_file, transcript, outdir, format=transcription_format)
         transcribed.append(audio_file.stem)
 
+
 def main():
     parser = argparse.ArgumentParser(
         description="Transcribe audio files with Jax Whisper"
@@ -134,16 +138,24 @@ def main():
         help="Transcription format. Specify 'txt' or 'jsonl'. By default, both are produced",
     )
     parser.add_argument("-b", "--batch-size", type=int, default=None, help="Batch size")
+    parser.add_argument("-n", "--num-beams", type=int, default=5, help="Num beams")
     # parser.add_argument(
     #     "-R", "--return-timestamps", action="store_true", help="Return timestamps"
     # )
     args = parser.parse_args()
 
     if args.batch_size is None:
-        pipeline = FlaxWhisperPipeline(args.model, dtype=jnp.bfloat16)
+        pipeline = FlaxWhisperPipeline(
+            args.model,
+            dtype=jnp.bfloat16,
+            num_beams=args.num_beams,
+        )
     else:
         pipeline = FlaxWhisperPipeline(
-            args.model, dtype=jnp.bfloat16, batch_size=args.batch_size
+            args.model,
+            dtype=jnp.bfloat16,
+            batch_size=args.batch_size,
+            num_beams=args.num_beams,
         )
     print(f"Loaded model {args.model}")
     if not args.transcribe_many:
