@@ -188,7 +188,7 @@ def main():
                 language=args.language,
                 audio_format=args.audio_format,
                 transcription_format=args.transcription_format,
-                return_timestamps=args.return_timestamps,
+                return_timestamps=True,
             )
         except AssertionError:
             print("Must specify --audio_dir when transcribing many files")
